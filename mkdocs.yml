@@ -1,0 +1,12 @@
+site_name: Honeydew
+theme:
+  name: "material"
+plugins:
+  - search
+  - mkdocstrings
+
+nav:
+  - Honeydew Docs: index.md
+  - MySQL Connector: mysql.md
+  - GCP Connector: gcp.md
+  - How-To Guides: how-to-guides.md

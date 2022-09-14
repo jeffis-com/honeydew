@@ -4,7 +4,7 @@ from google.cloud import storage
 import pandas as pd
 import pandas_gbq
 
-class gcp_connector:
+class GcpConnector:
     """
     Instantiate a GCP connector.
     Args:
@@ -18,7 +18,7 @@ class gcp_connector:
         if proxy != '':
             os.environ['HTTP_PROXY'] = proxy
             os.environ['HTTPS_PROXY'] = proxy
-    
+
     def bq_query_to_dataframe(self, project_id, query, timeout=3600, method=1):
         """
         Submit query to BigQuery and store result into pandas dataframe
@@ -40,14 +40,14 @@ class gcp_connector:
             rows = list(query_job.result(timeout=timeout))
             df = pd.DataFrame(data=[list(x.values()) for x in rows], columns=list(rows[0].keys()))
         return df
-    
+
     def bq_query_non_dql(self, project_id, query):
         """
         Submit non Data Query Language (DQL) type of query to BigQuery. Example: CREATE, DROP, TRUNCATE, INSERT, UPDATE, DELETE
         Args:
             project_id (str): Project ID
             query (str): SQL query
-        
+
         Returns:
             result (result): Iterator of row data. Reference: https://googleapis.dev/python/bigquery/latest/generated/google.cloud.bigquery.job.QueryJob.html?highlight=job%20result#google.cloud.bigquery.job.QueryJob.result
         """
@@ -70,7 +70,7 @@ class gcp_connector:
             compression (str): Compression format. Default: GZIP. Reference: https://cloud.google.com/bigquery/docs/exporting-data#export_formats_and_compression_types
             overwrite (boolean): GCS URI destination will be overwritten if the value is True. Default: True
             region (str): Region to run the process. Default: 'northamerica-northeast1'
-        
+
         Returns:
             result (result): Iterator of row data. Reference: https://googleapis.dev/python/bigquery/latest/generated/google.cloud.bigquery.job.QueryJob.html?highlight=job%20result#google.cloud.bigquery.job.QueryJob.result
         """
@@ -98,7 +98,7 @@ class gcp_connector:
             bucket_id (str): Bucket ID
             source_blob_path (str): The path of source object. Example: 'gcs-directory/my-filename.txt'
             destination_path (str): Local destination path. Example: '/my-directory/my-filename.txt'
-        
+
         Returns:
             result (result): Iterator of row data. Reference: https://googleapis.dev/python/bigquery/latest/generated/google.cloud.bigquery.job.QueryJob.html?highlight=job%20result#google.cloud.bigquery.job.QueryJob.result
         """
@@ -134,4 +134,3 @@ class gcp_connector:
             blob.download_to_filename(destination_uri)
         results = 'OK'   
         return results
-    

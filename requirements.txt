@@ -17,3 +17,6 @@ grafeas>=1.0.1
 graphviz>=0.13.2
 grpc-google-iam-v1>=0.12.3
 pandas-gbq
+pytz
+paramiko
+scp
